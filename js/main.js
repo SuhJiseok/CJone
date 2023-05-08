@@ -4,53 +4,68 @@
 //toggle()
 //title="고객센터 열기" ->title="고객센터 닫기"
 const topMenuDD = document.querySelectorAll('dl.topMenu > dd');
-topMenuDD[4].addEventListener('click', e=>{
+topMenuDD[4].addEventListener('click', e => {
   e.currentTarget.classList.toggle("on");
-  if(e.currentTarget.classList.contains("on")){
-    e.currentTarget.childern[0].setAttribute("title","고객센터 닫기");
+  if (e.currentTarget.classList.contains("on")) {
+    e.currentTarget.children[0].setAttribute("title", "고객센터 닫기");
   } else {
-    e.currentTarget.childern[0].setAttribute("title", "고객센터 열기");
+    e.currentTarget.children[0].setAttribute("title", "고객센터 열기");
   }
-})
+});
 
-// 주메뉴
 const wraps = document.querySelector(".header_wrap");
-const gnbMenu = document.querySelectorAll(".gnb>ul>li");
-const subMenu = document.querySelectorAll(".gnb>ul>li>ul");
-const customer = document.querySelector("dl.topMenu > dd:nth-of-type(5)")
+const srchOpen = document.querySelector(".srch");
+const srchBox = document.querySelector("form.srch");
+const customer = document.querySelector("dl.topMenu > dd:nth-of-type(5)");
 
-for(let i=0;i<gnbMenu.length;i++){
-  gnbMenu[i].addEventListener("mouseover",()=>{
+let gnbA = document.querySelectorAll("nav.gnb>ul>li");
+let header_wrap = document.querySelector(".header_wrap");
+let topMenu = document.querySelector(".topMenu");
 
-    // 고객센터에 on붙어 있으면 고객센터의 on을 지운다
-    if(customer.classList.contains("on")){
-      customer.classList.remove("on")
+gnbA.forEach(li => {
+  li.addEventListener("mouseover", e => {
+    if (topMenu.classList.contains('on')) {
+      topMenu.classList.remove("on");
     }
-        // 검색박스에 on붙어 있으면 검색박스의 on을 지운다
-    if(srchOpen.classList.contains("on")){
+    if (srchOpen.classList.contains('on')) {
       srchOpen.classList.remove("on");
       srchBox.classList.remove("on");
     }
-    wraps.classList.add("on");
-    for(let i=0;i<subMenu.length;i++){
-      subMenu[i].classList.add("on");
-    }
-  })
-  gnbMenu[i].addEventListener("mouseout",()=>{
-    wraps.classList.remove("on");
-    for(let i=0;i<subMenu.length;i++){
-      subMenu[i].classList.remove("on");
-    }
-  })
 
+    if (customer.classList.contains("on")) {
+      customer.classList.remove("on")
+    }
 
-gnbMenu[i].children[0].addEventListener('blur', ()=>{
-  wraps.classList.remove("on");
-  subMenu.forEach(item =>{
-    item.classList.remove("on")
-  })
-})
-}
+    header_wrap.classList.add('on');
+    gnbA.forEach(item => {
+      let subMenu = item.querySelector("ul");
+      if (subMenu) {
+        subMenu.classList.add('on');
+      }
+    });
+  }); //mouseover
+
+  li.addEventListener("mouseout", e => {
+    header_wrap.classList.remove('on');
+    gnbA.forEach(item => {
+      let subMenu = item.querySelector("ul");
+      if (subMenu) {
+        subMenu.classList.remove('on');
+      }
+    });
+  }); //mouseout
+
+  li.children[0].addEventListener('blur', () => {
+    header_wrap.classList.remove("on");
+    gnbA.forEach(item => {
+      let subMenu = item.querySelector("ul");
+      if (subMenu) {
+        subMenu.classList.remove("on");
+      }
+    });
+  });
+});
+
 //검색열기닫기
 
 const srchbtn = document.querySelector(".srch_open") 
@@ -65,9 +80,9 @@ srchbtn.addEventListener("click",e=>{
 
 })
 
+
 // 로그인 이미지
-// a.appear 안에 img 000 00 .png ~ 0056.png
-//a.loop 안에 img 000 00 ~ 000 81.png
+
 const appear = document.querySelector(".login>.appear");
 const loop = document.querySelector(".login>.loop");
 for(let i=0; i<57; i++){
@@ -87,15 +102,7 @@ for(let i=0; i<82; i++){
 
 // 로그인 애니메이션
 // appear 0~56 이미지 각각에 animation 속성 적용
-// animation: ani 2.85s linear 0s 1;
-// animation: ani 2.85s linear 0.05s 1;
-// animation: ani 2.85s linear 0.1s 1;
-// animation: ani 2.85s linear 2.8s 1;
 
-// loop 0~81 이미지 각각에 animation 속성적용
-// animation: ani 4.1s linear 2.85s infinite;
-// animation: ani 4.1s linear 2.9s infinite;
-// animation: ani 4.1s linear 2.95s infinite;
 const appearimg = document.querySelectorAll(".login>.appear>img")
 const loopimg = document.querySelectorAll(".login>.loop>img")
 const delay = 0.05;
@@ -105,50 +112,7 @@ for(let i=0;i<57;i++){
 for(let j=0;j<loopimg.length;j++){
   loopimg[j].style.animation=`ani 4.1s linear ${2.85+(j*delay)}s infinite`
 }
-// content1 - 퀵메뉴 이미지 생성
-// for()문 이용해서 <img> 를 quick01_00000.png~quick01_00019.png 생성
-// <span> 안에 넣기
 
-// let quickimg1 =''
-// let quickimg2 =''
-// let quickimg3 =''
-// let quickimg4 =''
-
-// for(let i=0;i<20;i++){
-//   if(i<10){
-//   quickimg1 += `<img src="img/quick01/quick01_0000${i}.png"/>`
-//   }else{
-//   quickimg1 += `<img src="img/quick01/quick01_000${i}.png"/>`
-//   }
-// }
-// document.querySelector("span.quick1").innerHTML = quickimg1
-
-// for(let i=0;i<20;i++){
-//   if(i<10){
-//   quickimg2 += `<img src="img/quick02/quick02_0000${i}.png"/>`
-//   }else{
-//   quickimg2 += `<img src="img/quick02/quick02_000${i}.png"/>`
-//   }
-// }
-// document.querySelector("span.quick2").innerHTML = quickimg2
-
-// for(let i=0;i<20;i++){
-//   if(i<10){
-//   quickimg3 += `<img src="img/quick03/quick03_0000${i}.png"/>`
-//   }else{
-//   quickimg3 += `<img src="img/quick03/quick03_000${i}.png"/>`
-//   }
-// }
-// document.querySelector("span.quick3").innerHTML = quickimg3
-
-// for(let i=0;i<20;i++){
-//   if(i<10){
-//   quickimg4 += `<img src="img/quick04/quick04_0000${i}.png"/>`
-//   }else{
-//   quickimg4 += `<img src="img/quick04/quick04_000${i}.png"/>`
-//   }
-// }
-// document.querySelector("span.quick4").innerHTML = quickimg4
 
 const quickSpans = document.querySelectorAll('.content1 span');
 for (let i = 0; i < quickSpans.length; i++) {
@@ -180,39 +144,6 @@ for(let i=0;i<content1li.length;i++){
   })
 }
 
-//배너
-//next 버튼을 눌렀을때
-//배너번호 1증가
-//배너번호가 마지막 배너번호보다 크면 배너번호가 다시 0으로
-//배너프레임의 left 값 변경해서 배너 움직이게
-
-/*const bannerFrame = document.querySelector('.banner_frame');
-const sections = bannerFrame.querySelectorAll('section');
-const arrows = document.querySelectorAll('.arrow > a');
-
-let currentSection = 1;
-let bannerFrameLeft = 0;
-
-// Next 버튼 클릭 시
-arrows[1].addEventListener('click', function() {
-  currentSection++;
-  if (currentSection >= sections.length) {
-    currentSection = 0;
-  }
-  bannerFrameLeft = -currentSection * 100;
-  bannerFrame.style.left = bannerFrameLeft + '%';
-});
-
-// Prev 버튼 클릭 시
-arrows[0].addEventListener('click', function() {
-  currentSection--;
-  if (currentSection < 0) {
-    currentSection = sections.length - 1;
-  }
-  bannerFrameLeft = -currentSection * 100;
-  bannerFrame.style.left = bannerFrameLeft + '%';
-});
-↓↓↓↓↓↓↓↓↓간단하게 ↓↓↓↓↓↓↓↓↓↓      */
 
 
 const arrows = document.querySelectorAll('.arrow > a');
